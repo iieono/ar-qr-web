@@ -137,7 +137,7 @@
     setLoading(true);
     try {
       const productId = new Date().getTime().toString();
-      const productUrl = `http://localhost:5173/product/${productId}`;
+      const productUrl = `https://ar-qr-admin.netlify.app//product/${productId}`;
 
       // Ensure price is an integer
       const price = parseInt(formData.price, 10);
@@ -148,7 +148,7 @@
       }
 
       // Generate QR Code as PNG
-      const qrCodeDataUrl = await QRCode.toDataURL(productUrl); // Generates a PNG base64 data URL
+      const qrCodeDataUrl = await QRCode.toDataURL(productId); // Generates a PNG base64 data URL
 
       // Convert the base64 data URL to a Blob
       const response = await fetch(qrCodeDataUrl);
@@ -174,6 +174,7 @@
         {
           ...formData,
           price, // Use the parsed integer price
+          productId: productId,
           qrCodeUrl: qrCodeFileUrl,
           productUrl: productUrl,
           createdBy: user.$id, // Use `$id` instead of `id`
