@@ -566,7 +566,7 @@ function App() {
                     />
                   </svg>
                 </div>
-                <span className="font-bold text-gray-800">ProductHub</span>
+                <span className="font-bold text-gray-800">U-White</span>
               </div>
             )}
             <button
@@ -688,32 +688,6 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                {currentView === "dashboard" && "Dashboard"}
-                {currentView === "create" && "Add New Product"}
-                {currentView === "edit" && "Edit Product"}
-                {currentView === "view" && "Product Details"}
-              </h1>
-              <p className="text-gray-600">
-                {currentView === "dashboard" &&
-                  `Manage your ${totalProducts} products`}
-                {currentView === "create" &&
-                  "Create a new product with QR code"}
-                {currentView === "edit" && "Update product information"}
-                {currentView === "view" && "View detailed product information"}
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <p className="text-sm text-gray-500">Welcome back,</p>
-                <p className="font-semibold text-gray-900">{user?.name}</p>
-              </div>
-            </div>
-          </div>
-        </header>
 
         {/* Dashboard Content */}
         {currentView === "dashboard" && (
@@ -1128,7 +1102,7 @@ function App() {
                             description: e.target.value,
                           })
                         }
-                        rows="4"
+                        rows="10"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="Enter product description"
                       />
