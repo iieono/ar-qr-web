@@ -702,7 +702,7 @@ export default function Dashboard() {
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-blue-600">
                 U-White Dashboard
               </h1>
               <p className="text-gray-600">Welcome back, {user.name}</p>
@@ -710,7 +710,7 @@ export default function Dashboard() {
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 text-red-600 hover:text-red-700"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -912,7 +912,7 @@ export default function Dashboard() {
 
           {/* Filters and Search */}
           <Card className="mb-6">
-            <CardContent className="p-6">
+            <CardContent className="px-6">
               <div className="flex flex-col md:flex-row gap-4 items-center">
                 <div className="flex-1">
                   <div className="relative">
@@ -929,7 +929,7 @@ export default function Dashboard() {
                   value={selectedCategory}
                   onValueChange={setSelectedCategory}
                 >
-                  <SelectTrigger className="w-48 bg-white">
+                  <SelectTrigger className="w-48 bg-white text-gray-600">
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Filter by category" />
                   </SelectTrigger>
@@ -944,7 +944,7 @@ export default function Dashboard() {
                 </Select>
                 <Button
                   onClick={openCreateModal}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 text-green-600 hover:text-green-700"
                 >
                   <Plus className="w-4 h-4" />
                   Add Product
@@ -953,151 +953,148 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Products Table */}
-          <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead className="text-start">Category</TableHead>
-                      <TableHead className="text-end">Price</TableHead>
-                      <TableHead>Nutrition</TableHead>
-                      <TableHead>Created</TableHead>
-                      <TableHead>Expires</TableHead>
-                      <TableHead>Days Left</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {loading ? (
-                      <TableRow>
-                        <TableCell colSpan={8} className="text-center py-8">
-                          <div className="flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ) : filteredProducts.length === 0 ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={8}
-                          className="text-center py-8 text-gray-500"
-                        >
-                          No products found
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      filteredProducts.map((product) => {
-                        const daysLeft = calculateDaysLeft(
-                          product.expirationDate
-                        );
-                        return (
-                          <TableRow key={product.$id}>
-                            <TableCell className="text-center">
-                              <div className="flex items-center justify-start gap-3">
-                                {product.productImage && (
-                                  <img
-                                    src={
-                                      product.productImage || "/placeholder.svg"
-                                    }
-                                    alt={product.name}
-                                    className="w-10 h-10 rounded-lg object-cover"
-                                  />
-                                )}
-                                <div>
-                                  <div className="font-medium">
-                                    {product.name}
-                                  </div>
-                                  <div className="text-sm text-gray-500 truncate max-w-xs">
-                                    {product.description}
-                                  </div>
-                                </div>
-                              </div>
-                            </TableCell>
-
-                            <TableCell className="text-start">
-                              {product.category}
-                            </TableCell>
-
-                            <TableCell className="text-end">
-                              {product.price
-                                .toString()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-                              UZS
-                            </TableCell>
-
-                            <TableCell className="text-center">
-                              <div className="text-sm">
-                                <div className="font-medium">
-                                  {product.totalKcal || 0} kcal
-                                </div>
-                              </div>
-                            </TableCell>
-
-                            <TableCell className="text-center">
-                              {new Date(
-                                product.createdDate
-                              ).toLocaleDateString()}
-                            </TableCell>
-
-                            <TableCell className="text-center">
-                              {new Date(
-                                product.expirationDate
-                              ).toLocaleDateString()}
-                            </TableCell>
-
-                            <TableCell className="text-center">
-                              <Badge
-                                variant={
-                                  daysLeft < 0
-                                    ? "default"
-                                    : daysLeft < 30
-                                    ? "secondary"
-                                    : "default"
-                                }
-                              >
-                                {daysLeft < 0 ? "Expired" : `${daysLeft} days`}
-                              </Badge>
-                            </TableCell>
-
-                            <TableCell className="flex justify-center">
-                              <div className="flex items-center gap-2">
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => openViewModal(product)}
-                                >
-                                  <Eye className="w-4 h-4" />
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => openEditModal(product)}
-                                >
-                                  <Edit className="w-4 h-4" />
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() =>
-                                    handleDeleteProduct(product.$id)
-                                  }
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })
-                    )}
-                  </TableBody>
-                </Table>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {loading ? (
+              Array.from({ length: 6 }).map((_, i) => (
+                <Card key={i} className="animate-pulse">
+                  <CardContent className="p-6">
+                    <div className="w-full h-48 bg-gray-200 rounded-lg mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-4"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                      <div className="h-8 bg-gray-200 rounded w-16"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : filteredProducts.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <svg
+                  className="w-16 h-16 text-gray-300 mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                  />
+                </svg>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No products found
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  Get started by creating your first product.
+                </p>
+                <Button onClick={openCreateModal} className="px-6 py-3">
+                  Create Product
+                </Button>
               </div>
-            </CardContent>
-          </Card>
+            ) : (
+              filteredProducts.map((product) => {
+                const daysLeft = calculateDaysLeft(product.expirationDate);
+                return (
+                  <Card
+                    key={product.$id}
+                    className="overflow-hidden hover:shadow-md transition-shadow pt-0"
+                  >
+                    <div className="relative">
+                      <img
+                        src={
+                          product.productImage ||
+                          "/placeholder.svg?height=200&width=400"
+                        }
+                        alt={product.name}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="absolute top-4 right-4 flex gap-2">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            daysLeft < 0
+                              ? "bg-red-100 text-red-800"
+                              : daysLeft < 30
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-green-100 text-green-800"
+                          }`}
+                        >
+                          {daysLeft < 0 ? "Expired" : `${daysLeft} days`}
+                        </span>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            product.isHalal
+                              ? "bg-emerald-100 text-emerald-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {product.isHalal ? "Halal" : "Not Halal"}
+                        </span>
+                      </div>
+                    </div>
+                    <CardContent className="p-6 py-0">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="text-lg font-semibold text-gray-900 truncate">
+                          {product.name}
+                        </h3>
+                        <span className="text-sm bg-gray-100 text-gray-600 px-2 py-1 rounded-full ml-2">
+                          {product.category}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        {product.description}
+                      </p>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-2xl font-bold text-emerald-500">
+                          {product.price
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
+                          UZS
+                        </span>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-500">Expires</p>
+                          <p className="text-sm font-medium text-gray-500">
+                            {new Date(
+                              product.expirationDate
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => openViewModal(product)}
+                          className="flex-1 text-indigo-600 hover:text-indigo-700"
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => openEditModal(product)}
+                          className="flex-1 text-blue-600 hover:text-blue-700"
+                        >
+                          <Edit className="w-4 h-4 mr-1" />
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-red-600 hover:text-red-700"
+                          onClick={() => handleDeleteProduct(product.$id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     );
@@ -1122,19 +1119,18 @@ export default function Dashboard() {
               <ArrowLeft className="w-4 h-4" />
               Back to Dashboard
             </Button>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                {currentView === "create" && "Add New Product"}
-                {currentView === "edit" && "Edit Product"}
-                {currentView === "view" && "Product Details"}
-              </h1>
-              <p className="text-gray-600">
-                {currentView === "create" &&
-                  "Create a new product with QR code"}
-                {currentView === "edit" && "Update product information"}
-                {currentView === "view" && "View detailed product information"}
-              </p>
-            </div>
+          </div>
+          <div className="">
+            <h1 className="text-2xl font-bold text-center text-blue-600">
+              {currentView === "create" && "Add New Product"}
+              {currentView === "edit" && "Edit Product"}
+              {currentView === "view" && "Product Details"}
+            </h1>
+            <p className="text-gray-5 00">
+              {currentView === "create" && "Create a new product with QR code"}
+              {currentView === "edit" && "Update product information"}
+              {currentView === "view" && "View detailed product information"}
+            </p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="text-right">
