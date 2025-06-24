@@ -267,6 +267,19 @@ export default function Dashboard() {
 
   const handleCreateProduct = async () => {
     if (!user) return;
+    // Add validation checks here
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.price ||
+      !formData.category ||
+      !formData.expirationDate
+    ) {
+      alert(
+        "Please fill in all required product fields: Name, Description, Price, Category, and Expiration Date."
+      );
+      return; // Stop the function if validation fails
+    }
 
     setLoading(true);
     try {
@@ -365,6 +378,19 @@ export default function Dashboard() {
 
   const handleUpdateProduct = async () => {
     if (!selectedProduct) return;
+    // Add validation checks here
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.price ||
+      !formData.category ||
+      !formData.expirationDate
+    ) {
+      alert(
+        "Please fill in all required product fields: Name, Description, Price, Category, and Expiration Date."
+      );
+      return; // Stop the function if validation fails
+    }
 
     setLoading(true);
     try {
